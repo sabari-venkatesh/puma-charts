@@ -3,17 +3,30 @@
     <span class="progress-label">Benchmark - {{chartParams.data[0].benchmark.name}}</span>
     <div class="progress-bar" role="progressbar"
         *ngFor="let value of chartParams.data[0].benchmark.values; let i = index;" 
-        [ngStyle]="{'width': value * 100 / chartParams.data[0].benchmark.total + '%', 
+        [ngStyle]="{'width': value * 100 / benchmarkTotal + '%', 
         'background-color': chartParams.colors[i]}"></div>
   </div>
   <div class="progress-group" *ngFor="let group of chartParams.data | slice: 1">
-    <div class="progress" *ngFor="let answer of group.answers">
-      <span class="progress-label">{{group.groupName}} - {{answer.name}}</span>
-      <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="value" [attr.aria-valuemax]="chartParams.data[0].benchmark.total"
-          *ngFor="let value of answer.values; let i = index"
-          [ngStyle]="{'width': value * 100 / chartParams.data[0].benchmark.total + '%',
-          'background-color': chartParams.colors[i]}"></div>
+    <div class="progress-item" *ngFor="let evaluation of group.evaluations; let j=index">
+      <div class="progress" (click)="toggleEvaluations($event)">
+        <span class="progress-label">{{group.groupName}} - {{evaluation.name}}</span>
+        <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="value" [attr.aria-valuemax]="benchmarkTotal"
+            *ngFor="let value of evaluation.values; let i = index"
+            [ngStyle]="{'width': value * 100 / benchmarkTotal + '%',
+            'background-color': chartParams.colors[i]}"></div>
+      </div>
+      <div class="progress-subgroup" *ngIf="evaluation.evaluators" [class.active]="active">
+        <div class="progress" *ngFor="let evaluator of evaluation.evaluators">
+          <div class="progress-bar" role="progressbar"
+            *ngFor="let value of evaluator.values; let i = index"
+            [ngStyle]="{'width': value * 100 / benchmarkTotal + '%',
+            'background-color': chartParams.colors[i]}"></div>
+        </div>
+      </div>
     </div>
+    <!-- <div class="progress progress-inner" *ngFor="let evaluator of group.evaluations.evaluators">
+
+    </div> -->
   </div>
 </div>
 

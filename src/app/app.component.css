@@ -1,5 +1,4 @@
 .chart-horizontal-bars {
-  background-color: #ddd;
   width: 630px;
 }
 
@@ -8,9 +7,10 @@
   flex-direction: row;
   flex-wrap: nowrap;
   position: relative;
+  cursor: pointer;
 }
 
-.chart-horizontal-bars .progress:first-child::after {
+.chart-horizontal-bars>.progress:first-child::after {
   content: "";
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -19,23 +19,51 @@
   top: 0;
   width: 100%;
   left: 0;
+  border-bottom: 1px solid #fff;
 }
 
 .progress-label {
   position: absolute;
   z-index: 2;
-  left: 2px;
-  top: 2px;
-  line-height: 1;
+  left: 4px;
+  top: 0;
+  line-height: 18px;
   color: #fff;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
+  display: block;
 }
 
 .progress-bar {
-  height: 16px;
+  height: 18px;
+  width: 0;
+  transition: width 1s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .progress-group {
   border-bottom: 1px solid #fff;
+}
+
+.progress-subgroup {
+  margin: 5px 0;
+  display: none;
+  animation: fadeIn .2s ease-in;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.progress-subgroup.active {
+  display: block;
+}
+
+.progress-subgroup .progress-bar {
+  height: 4px;
+  margin: 5px 0;
 }
