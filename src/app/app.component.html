@@ -1,53 +1,41 @@
 <div class="chart-horizontal-bars">
-  <div class="progress">
-    <span class="progress-label">Benchmark - {{chartParams.data[0].benchmark.name}}</span>
-    <div class="progress-bar" role="progressbar"
+  <div class="ui-progress">
+    <span class="ui-progress-label">Benchmark - {{chartParams.data[0].benchmark.name}}</span>
+    <div class="ui-progress-bar" role="ui-progressbar"
         *ngFor="let value of chartParams.data[0].benchmark.values; let i = index;" 
         [ngStyle]="{'width': value * 100 / benchmarkTotal + '%', 
-        'background-color': chartParams.colors[i]}"></div>
+        'background-color': chartParams.colors[i]}">
+      <span class="ui-progress-index">{{value}}</span>
+    </div>
   </div>
-  <div class="progress-group" *ngFor="let group of chartParams.data | slice: 1">
-    <div class="progress-item" *ngFor="let evaluation of group.evaluations; let j=index">
-      <div class="progress" (click)="toggleEvaluations($event)">
-        <span class="progress-label">{{group.groupName}} - {{evaluation.name}}</span>
-        <div class="progress-bar" role="progressbar" [attr.aria-valuenow]="value" [attr.aria-valuemax]="benchmarkTotal"
+  <div class="ui-progress-group" *ngFor="let group of chartParams.data | slice: 1">
+    <div class="ui-progress-item" *ngFor="let evaluation of group.evaluations; let j=index">
+      <div class="ui-progress" (click)="toggleEvaluations($event)">
+        <div class="ui-progress-label">
+          <span>{{group.groupName}}</span> - {{evaluation.name}}
+        </div>
+        <div class="ui-progress-bar" role="ui-progressbar" [attr.aria-valuenow]="value" [attr.aria-valuemax]="benchmarkTotal"
             *ngFor="let value of evaluation.values; let i = index"
             [ngStyle]="{'width': value * 100 / benchmarkTotal + '%',
-            'background-color': chartParams.colors[i]}"></div>
+            'background-color': chartParams.colors[i]}"
+            (mouseenter)="updateMainPopover(evaluation)" [popover]="popTemplate" containerClass="ui-popover" triggers="mouseenter" [outsideClick]="true">
+          <span class="ui-progress-spacer" [ngStyle]="{'background-color': chartParams.colors[i]}"></span>
+          <span class="ui-progress-index">{{value}}</span>
+        </div>
       </div>
-      <div class="progress-subgroup" *ngIf="evaluation.evaluators" [class.active]="active">
-        <div class="progress" *ngFor="let evaluator of evaluation.evaluators">
-          <div class="progress-bar" role="progressbar"
+      <div class="ui-progress-subgroup" *ngIf="evaluation.evaluators" [class.active]="active">
+        <div class="ui-progress" *ngFor="let evaluator of evaluation.evaluators">
+          <div class="ui-progress-bar" role="ui-progressbar"
             *ngFor="let value of evaluator.values; let i = index"
             [ngStyle]="{'width': value * 100 / benchmarkTotal + '%',
-            'background-color': chartParams.colors[i]}"></div>
+            'background-color': chartParams.colors[i]}"
+            (mouseenter)="updateSubPopover(evaluator)" [popover]="popTemplate" containerClass="ui-popover" triggers="mouseenter" [outsideClick]="true"></div>
         </div>
       </div>
     </div>
-    <!-- <div class="progress progress-inner" *ngFor="let evaluator of group.evaluations.evaluators">
-
-    </div> -->
   </div>
 </div>
 
-<!-- <div class="chart-container">
-  <div class="chart-header">
-    <span class="header-name">Benchmark - {{chartParams.data[0].benchmark.name}}</span>
-    <div class="header-range" 
-      *ngFor="let value of chartParams.data[0].benchmark.values; let i = index;" 
-      [ngStyle]="{
-        'width': value * 100 / chartParams.data[0].benchmark.total + '%', 
-        'background-color': chartParams.colors[i]}">
-    </div>
-  </div>
-  <div class="chart-group" *ngFor="let group of chartParams.data | slice: 1">
-    <div class="chart-item" *ngFor="let answer of group.answers">
-      <span class="group-name">
-        {{group.groupName}} - {{answer.name}}
-      </span>
-      <div class="item-range"
-        *ngFor="let value of answer.values; let i = index"
-        [ngStyle]="{'width': value * 100 / chartParams.data[0].benchmark.total + '%','background-color': chartParams.colors[i]}"></div>
-    </div>
-  </div>
-</div> -->
+<ng-template #popTemplate>
+  <div [innerHtml]="popoverContent"></div>
+</ng-template>

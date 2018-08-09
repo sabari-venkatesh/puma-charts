@@ -1,48 +1,13 @@
-import { Component } from '@angular/core';
-import { AngularWaitBarrier } from '../../node_modules/blocking-proxy/built/lib/angular_wait_barrier';
+import { Component, NgModule } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title = 'app';
-  // chartParams = {
-  //   'colors': ['#2dadde', '#3565c8', '#0c2b75', '#ddd'],
-  //   'data': [
-  //     {
-  //       'benchmark': {
-  //         'name': 'hello benchmark',
-  //         'values': [4.75, 2.25, .75, 1.25]
-  //       }
-  //     },
-  //     {
-  //       'groupName': 'Group 1',
-  //       'evaluations': [
-  //         {
-  //           'name': '7803 - SB16 Sprayed Sample Nozzle',
-  //           'values': [5.85, 1, 1.15, 2],
-  //         }, {
-  //           'name': '7801 - SB16 Fresh Scent',
-  //           'values': [5.35, 2.65, .5, 1.5],
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       'groupName': 'Group 2',
-  //       'evaluations': [
-  //         {
-  //           'name': '7802 - SB16 Sprayed Sample Nozzle',
-  //           'values': [4.55, 3.45, 1, 1],
-  //         }, {
-  //           'name': '7800 - SB16 Fresh Scent',
-  //           'values': [3.75, 3.75, 1.5, 1],
-  //         }
-  //       ]
-  //     }]
-  // };
-
   chartParams = {
     'colors': ['#faa838'],
     'data': [
@@ -148,7 +113,38 @@ export class AppComponent {
 
   benchmarkTotal = this.chartParams.data[0].benchmark.values.reduce((a, b) => a + b, 0);
 
+  popoverContent = `<strong>welcome</strong>`;
+
   toggleEvaluations(element) {
     element.currentTarget.nextElementSibling.classList.add('active');
+  }
+
+  updateMainPopover(evaluation) {
+    this.popoverContent = `
+    <div class="d-flex justify-content-between">
+      <strong>${evaluation.name}</strong>
+      <strong>${evaluation.values[0]}</strong>
+    </div>
+    ${evaluation.evaluators.map(evaluator => `
+      <div class="d-flex justify-content-between">
+        <span>${evaluator.name}</span>
+        ${evaluator.values.map(value => `<span class="ml-2">${value}</span>`)}
+      </div>
+    `).join('')}`;
+  }
+
+  toggleStar() {
+    alert('starred');
+  }
+
+  updateSubPopover(evaluator) {
+    this.popoverContent = `
+      <div class="d-flex justify-content-between">
+        <span>${evaluator.name} - </span>
+        <strong class="mr-auto">${evaluator.values[0]}</strong>
+        <span class="ml-3 icon-star" (click)="toggleStar()">&#9734;</span>
+      </div>
+      <p>${evaluator.response}</p>
+    `;
   }
 }

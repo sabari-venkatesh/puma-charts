@@ -1,8 +1,9 @@
 .chart-horizontal-bars {
   width: 630px;
+  margin: 3rem auto;
 }
 
-.chart-horizontal-bars .progress {
+.chart-horizontal-bars .ui-progress {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -10,7 +11,7 @@
   cursor: pointer;
 }
 
-.chart-horizontal-bars>.progress:first-child::after {
+.chart-horizontal-bars>.ui-progress:first-child::after {
   content: "";
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -22,7 +23,7 @@
   border-bottom: 1px solid #fff;
 }
 
-.progress-label {
+.ui-progress-label {
   position: absolute;
   z-index: 2;
   left: 4px;
@@ -34,20 +35,51 @@
   display: block;
 }
 
-.progress-bar {
+.ui-progress-label span {
+  display: inline-block;
+  border-right: 1px solid #fff;
+  padding-right: 5px;
+}
+
+.ui-progress-bar {
   height: 18px;
   width: 0;
   transition: width 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+  position: relative;
 }
 
-.progress-group {
+.ui-progress-spacer {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  height: 2px;
+  z-index: 2;
+}
+
+.ui-progress-group .ui-progress-item:first-child .ui-progress-spacer {
+  top: 0;
+}
+
+.ui-progress-group .ui-progress-item:last-child .ui-progress-spacer {
+  bottom: 0;
+}
+
+.ui-progress-group {
   border-bottom: 1px solid #fff;
 }
 
-.progress-subgroup {
+.ui-progress-subgroup {
   margin: 5px 0;
   display: none;
   animation: fadeIn .2s ease-in;
+}
+
+.ui-progress-index {
+  position: absolute;
+  top: 0;
+  right: -.5em;
+  transform: translateX(100%);
+  font-size: .75rem;
 }
 
 @keyframes fadeIn {
@@ -59,11 +91,25 @@
   }
 }
 
-.progress-subgroup.active {
+.ui-progress-subgroup.active {
   display: block;
 }
 
-.progress-subgroup .progress-bar {
+.ui-progress-subgroup .ui-progress-bar {
   height: 4px;
   margin: 5px 0;
+}
+
+
+::ng-deep .ui-popover .popover-inner {
+  max-width: 300px;
+  color: #000;
+  background: #fff;
+  font-size: .75rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  text-align: left;
+}
+
+::ng-deep .ui-popover.popover-top .arrow::before {
+  border-top-color: #fff;
 }
