@@ -1,0 +1,40 @@
+::ng-deep .noUi-horizontal .noUi-handle {
+  background: url("/assets/range-arrows.png");
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  cursor: pointer;
+  height: 24px;
+  width: 48px;
+}
+
+::ng-deep .noUi-handle:after,
+::ng-deep .noUi-handle:before {
+  display: none;
+}
+
+::ng-deep .noUi-target {
+  border: 0;
+  box-shadow: none;
+}
+
+::ng-deep .noUi-pips-horizontal {
+  top: 0;
+  padding: 0;
+}
+
+::ng-deep .noUi-marker-horizontal.noUi-marker {
+  height: 10px;
+  width: 1px;
+}
+
+::ng-deep .noUi-connects {
+  height: 1px;
+  border-radius: 0;
+  top: 5px;
+  background: #ccc;
+}
+
+::ng-deep .noUi-value-horizontal {
+  transform: translate(-50%, 100%);
+}

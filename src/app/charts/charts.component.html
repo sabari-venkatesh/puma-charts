@@ -1,0 +1,42 @@
+<div class="chart-horizontal-bars">
+  <div class="ui-progress">
+    <span class="ui-progress-label">Benchmark - {{chartParams.data[0].benchmark.name}}</span>
+    <div class="ui-progress-bar" role="ui-progressbar"
+        *ngFor="let value of chartParams.data[0].benchmark.values; let i = index;" 
+        [ngStyle]="{'width': value * 100 / benchmarkTotal + '%', 
+        'background-color': chartParams.colors[i]}">
+      <span class="ui-progress-index">{{value}}</span>
+    </div>
+  </div>
+  <div class="ui-progress-group" *ngFor="let group of chartParams.data | slice: 1">
+    <div class="ui-progress-item" *ngFor="let evaluation of group.evaluations; let j=index">
+      <div class="ui-progress" (click)="toggleEvaluations($event)" [popover]="popTemplate" placement="bottom" containerClass="ui-popover" triggers="mouseenter:mouseleave" [outsideClick]="true">
+        <div class="ui-progress-label">
+          <span>{{group.groupName}}</span> - {{evaluation.name}}
+        </div>
+        <div class="ui-progress-bar" role="ui-progressbar" [attr.aria-valuenow]="value" [attr.aria-valuemax]="benchmarkTotal"
+            *ngFor="let value of evaluation.values; let i = index"
+            [ngStyle]="{'width': value * 100 / benchmarkTotal + '%',
+            'background-color': chartParams.colors[i]}"
+            (mouseenter)="updateMainPopover(evaluation)">
+          <span class="ui-progress-spacer" [ngStyle]="{'background-color': chartParams.colors[i]}"></span>
+          <span class="ui-progress-index">{{value}}</span>
+        </div>
+      </div>
+      <div class="ui-progress-subgroup" *ngIf="evaluation.evaluators" [class.active]="active">
+        <div class="ui-progress" *ngFor="let evaluator of evaluation.evaluators" (mouseout)="pop.hide()">
+          <div class="ui-progress-bar" role="ui-progressbar"
+            *ngFor="let value of evaluator.values; let i = index"
+            [ngStyle]="{'width': value * 100 / benchmarkTotal + '%',
+            'background-color': chartParams.colors[i]}"
+            (mouseenter)="updateSubPopover(evaluator)" 
+            [popover]="popTemplate" containerClass="ui-popover" triggers="mouseenter" placement="bottom" [outsideClick]="true" #pop="bs-popover"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #popTemplate>
+  <div [innerHtml]="popoverContent"></div>
+</ng-template>
