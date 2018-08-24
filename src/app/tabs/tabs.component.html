@@ -1,0 +1,15 @@
+<ul class="tabs" #tabpanel>
+  <ng-container *ngFor="let menu of menuItems; let i = index">
+    <li *ngIf="!hiddenMenuItems.includes(i)" class="tabitem" #tabitems>
+      <a href="">{{menu}}</a>
+    </li>
+  </ng-container>
+  <li class="tabitem btn-group" #tabmore dropdown>
+    <a href="" (click)="false" dropdownToggle data-toggle="dropdown">More</a>
+    <ul class="dropdown-menu tabs-secondary" *dropdownMenu role="menu">
+      <li *ngFor="let menuIndex of hiddenMenuItems">
+        <a href="" class="dropdown-item">{{menuItems[menuIndex]}}</a>
+      </li>
+    </ul>
+  </li>
+</ul>

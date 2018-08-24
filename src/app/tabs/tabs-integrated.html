@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <h1 class="header mb-3">Group Evaluations</h1>
+  <div class="tab-section tab-filter-search mat-shadow--2dp">
+    <mat-tab-group [@.disabled]="true" [disableRipple]=true>
+      <mat-tab *ngFor="let menu of menuItems">
+        <ng-template mat-tab-label>{{menu}}</ng-template>
+        <ng-template matTabContent>
+          <h1>{{menu}} Tab</h1>
+        </ng-template>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-form-field class="search-text-field w175px">
+            <mat-icon matPrefix class="search-icon-img">search</mat-icon>
+            <input matInput placeholder="Type your custom filter" [(ngModel)]="value">
+            <button class="evallist-close-icon" mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </ng-template>
+      </mat-tab>
+      <!-- <mat-tab disabled="true">
+        <ng-template mat-tab-label>
+          <mat-form-field class="search-text-field w175px">
+            <mat-icon matPrefix class="search-icon-img">search</mat-icon>
+            <input matInput placeholder="Type your custom filter" [(ngModel)]="value">
+            <button class="evallist-close-icon" mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </ng-template>
+      </mat-tab>
+      <mat-tab disabled="true">
+        <ng-template class="more-tabs-label" mat-tab-label>
+          <button class="more-icon" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu class="tab-category-items" #menu="matMenu" overlapTrigger="false">
+            <button class="evalhdr-item" mat-menu-item disabled>
+              <span> Categorize by</span>
+            </button>
+            <button mat-menu-item>
+              <span>Category</span>
+            </button>
+            <button mat-menu-item>
+              <span>SDM</span>
+            </button>
+            <button mat-menu-item>
+              <span>Creative Center</span>
+            </button>
+            <button mat-menu-item>
+              <span>Year</span>
+            </button>
+          </mat-menu>
+        </ng-template>
+      </mat-tab> -->
+    </mat-tab-group>
+  </div>
+</div>

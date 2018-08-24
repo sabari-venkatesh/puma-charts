@@ -1,0 +1,22 @@
+.tabs {
+  display: flex;
+  max-width: 800px;
+  flex-grow: 1;
+  list-style: none;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.tabitem {
+  background-color: #eae5c4;
+  margin-right: 2px;
+  padding: 5px 15px;
+}
+
+.tabitem a {
+  color: inherit;
+}
+
+.tabitem.is-active {
+  background-color: #fff;
+}

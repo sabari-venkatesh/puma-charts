@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from '../app.component';
 import { RangeComponent } from '../range/range.component';
 import { ChartsComponent } from '../charts/charts.component';
+import { TabsComponent } from '../tabs/tabs.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,9 @@ const routes: Routes = [
   }, {
     path: 'range',
     component: RangeComponent
+  }, {
+    path: 'tabs',
+    component: TabsComponent
   }
 ];
 
