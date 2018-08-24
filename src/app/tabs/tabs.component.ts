@@ -8,9 +8,9 @@ import { Component, OnInit, AfterViewInit, ViewChildren, ViewChild, QueryList, E
 export class TabsComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line:max-line-length
-  private menuItems: any = ['All', 'Fabric Care', 'Fine Fragrance', 'Hair Care', 'Home Care', 'Personal wash', 'Toiletaries', 'Cross Category', 'Utensils', 'Scent care'];
-  private hiddenMenuItems: any = [];
-  private doAdapt: Boolean = false;
+  public menuItems: any = ['All', 'Fabric Care', 'Fine Fragrance', 'Hair Care', 'Home Care', 'Personal wash', 'Toiletaries', 'Cross Category', 'Utensils', 'Scent care'];
+  public hiddenMenuItems: any = [];
+  public doAdapt: Boolean = false;
 
   @ViewChild('tabpanel') tabPanel: ElementRef;
   @ViewChildren('tabitems', { read: ElementRef }) tabItems: QueryList<ElementRef>;
